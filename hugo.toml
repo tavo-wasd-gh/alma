@@ -1,0 +1,4 @@
+baseURL = 'https://alma.ucr.ac.cr/'
+languageCode = 'es'
+title = 'ALMA'
+theme = 'alma'
