@@ -12,13 +12,16 @@
   --color-fg-link-visited: #002235ff;
   --color-fg-action: #883e1eff;
   --color-fg-action-secondary: #5d280fff;
+  /* Fonts-Default */
+  --font-default-sans: 'Helvetica', 'Arial', sans-serif;
+  --font-default-serif: serif;
   /* Fonts */
-  --font-family-header: 'Arial', sans-serif;
-  --font-family-footer: 'Arial', sans-serif;
-  --font-family-navbar: 'Arial', sans-serif;
-  --font-size-body: 1.15rem;
-  --font-family-body-heading: 'Computer Modern Serif', 'Merriweather', serif;
-  --font-family-body: 'Computer Modern Serif', 'Merriweather', serif;
+  --font-family-header: var(--font-default-sans);
+  --font-family-footer: var(--font-default-sans);
+  --font-family-navbar: var(--font-default-sans);
+  --font-size-body: 16px;
+  --font-family-body-heading: var(--font-default-serif);
+  --font-family-body: var(--font-default-serif);
   --font-line-height-body: 1.4;
   --font-family-article: serif;
   /* Dimensions */
