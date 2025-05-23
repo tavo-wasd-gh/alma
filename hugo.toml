@@ -2,3 +2,25 @@ baseURL = 'https://alma.ucr.ac.cr/'
 languageCode = 'es'
 title = 'ALMA'
 theme = 'alma'
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+    params.icon = 'bx bx-home'
+  [[menus.main]]
+    name = 'Posts'
+    pageRef = '/posts'
+    weight = 20
+    params.icon = 'bx bx-news'
+  [[menus.main]]
+    name = 'Tags'
+    pageRef = '/tags'
+    weight = 30
+    params.icon = 'bx bx-book'
+  [[menus.main]]
+    name = 'Menu'
+    pageRef = '#test'
+    weight = 40
+    params.icon = 'bx bx-menu'

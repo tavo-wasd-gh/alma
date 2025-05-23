@@ -3,19 +3,28 @@
     name = 'Home'
     pageRef = '/'
     weight = 10
-    params.icon = 'bxs-home'
-
+    params.icon = 'bx bx-home'
   [[menus.main]]
     name = 'Posts'
     pageRef = '/posts'
     weight = 20
-    params.icon = 'bxs-home'
-
+    params.icon = 'bx bx-news'
   [[menus.main]]
     name = 'Tags'
     pageRef = '/tags'
     weight = 30
-    params.icon = 'bxs-home'
+    params.icon = 'bx bx-book'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
+[params]
+  math = true
 
 [module]
   [module.hugoVersion]

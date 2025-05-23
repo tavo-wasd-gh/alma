@@ -3,45 +3,36 @@
 :root {
   /* Color palette - light */
   --color-bg: #fff;
-  --color-bg-secondary: #e2e2e2;
+  --color-bg-secondary: #E3EFF3d0;
   --color-fg: #000;
-  --color-fg-unemph: #aebaceff;
+  --color-fg-unemph: #ABBCBF;
   --color-fg-title: #020f12ff;
-  --color-fg-active: #004452ff;
-  --color-fg-link: #00334fff;
+  --color-fg-active: #13778B;
+  --color-fg-link: #166e9d;
   --color-fg-link-visited: #002235ff;
   --color-fg-action: #883e1eff;
   --color-fg-action-secondary: #5d280fff;
   /* Fonts */
-  --font-body: sans-serif;
-  --font-article: serif;
+  --font-family-header: 'Arial', sans-serif;
+  --font-family-footer: 'Arial', sans-serif;
+  --font-family-navbar: 'Arial', sans-serif;
+  --font-size-body: 1.15rem;
+  --font-family-body-heading: 'Computer Modern Serif', 'Merriweather', serif;
+  --font-family-body: 'Computer Modern Serif', 'Merriweather', serif;
+  --font-line-height-body: 1.4;
+  --font-family-article: serif;
   /* Dimensions */
   --dimension-content-width: 55rem;
-  --dimension-content-max-width: 90vw;
-  --dimension-content-margin: 1rem auto 1rem 6vw;
+  --dimension-content-max-width: 89.8vw;
+  --dimension-content-margin: 1rem auto 1rem 5vw;
   --dimension-navbar-padding: 4rem;
   --border-radius-large: 2rem;
-  --border-radius-medium: 1rem;
+  --border-radius-medium: 1.2rem;
+  --border-radius-small: 0.6rem;
   /* Misc */
   --blur-intensity: 0.3rem;
-}
-
-/* Medium */
-@media screen and (max-width: 70rem) {
-  :root {
-  }
-}
-
-/* Small */
-@media screen and (max-width: 40rem) {
-  :root {
-  }
-}
-
-/* Portrait */
-@media screen and (orientation: portrait) {
-  :root {
-  }
+  --text-hyphens-body: none;
+  --text-align-body: justify;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -60,19 +51,49 @@
   }
 }
 
+/* Medium */
+@media screen and (max-width: 70rem) {
+  :root {
+  }
+}
+
+/* Small */
+@media screen and (max-width: 40rem) {
+  :root {
+  }
+  nav .label {
+    display: none;
+  }
+}
+
+/* Portrait */
+@media screen and (orientation: portrait) {
+  :root {
+  }
+  nav .label {
+    display: none;
+  }
+}
+
 /* BODY */
 
 body {
+  text-align: var(--text-align-body);
+  hyphens: var(--text-hyphens-body);
   margin: var(--dimension-content-margin);
   background-color: var(--color-bg);
   color: var(--color-fg);
-  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-family: var(--font-family-body);
+  line-height: var(--font-line-height-body);
   width: var(--dimension-content-width);
   max-width: var(--dimension-content-max-width);
   padding-bottom: var(--dimension-navbar-padding);
 }
 
 h1,h2,h3,h4 {
+  font-weight: bold;
+  font-family: var(--font-family-body-heading);
   color: var(--color-fg-title);
 }
 
@@ -84,29 +105,32 @@ a {
 /* NAVBAR */
 
 nav {
+  font-family: var(--font-family-navbar);
   position: fixed;
+  z-index: 1000;
   max-width: var(--dimension-content-width);
   width: 90vw;
-  bottom: 3%;
+  bottom: 2%;
   left: 5%;
 }
 
 nav ul {
-  font-weight: bold;
+  font-size: 0.95rem;
   display: flex;
   backdrop-filter: blur(var(--blur-intensity));
   -webkit-backdrop-filter: blur(var(--blur-intensity));
-  gap: 5rem;
+  gap: 3rem;
   border: 1px solid var(--color-fg-unemph);
   border-radius: var(--border-radius-medium);
   background-color: var(--color-bg-secondary);
   list-style: none;
-  padding: 1rem 2rem;
+  padding: 0.8rem 0;
   margin: 0;
   justify-content: center;
 }
 
 nav a {
+  transition: color 0.3s ease, transform 0.3s ease;
   text-decoration: none;
   color: var(--color-fg-unemph);
 }
@@ -117,4 +141,57 @@ nav a:hover {
 
 nav a.active {
   color: var(--color-fg-active);
+}
+
+nav .icon {
+  vertical-align: middle;
+  font-size: 1.4rem;
+  padding: 0 0.2rem;
+}
+
+/* HEADER */
+
+header h1 {
+  margin: 0;
+  font-family: var(--font-family-header);
+  text-align: left;
+  color: var(--color-fg);
+  border-bottom: 1px solid var(--color-fg);
+}
+
+.page-front-matter {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.page-front-matter h1 {
+  margin: 0;
+  padding-top: 1rem;
+}
+
+/* FOOTER */
+
+footer {
+  font-size: 0.9rem;
+  font-family: var(--font-family-footer);
+  text-align: center;
+  color: var(--color-fg-unemph);
+}
+
+/* MISC */
+
+mjx-container.MathJax {
+  overflow-x: auto;
+  display: block;
+  max-width: 100%;
+  padding: 0.5rem 0;
+}
+
+/* IMAGES */
+
+img {
+  display: block;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 36rem;
 }

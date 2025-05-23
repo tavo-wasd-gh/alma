@@ -28,6 +28,7 @@ Renders a menu for the given menu ID.
       {{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") }}
     {{- end }}
     {{- $name := .Name }}
+    {{- $icon := .Params.icon }}
     {{- with .Identifier }}
       {{- with T . }}
         {{- $name = . }}
@@ -40,7 +41,12 @@ Renders a menu for the given menu ID.
             {{- printf " %s=%q" $k $v | safeHTMLAttr }}
           {{- end }}
         {{- end -}}
-      >{{ $name }}</a>
+      >
+        {{- if $icon }}
+          <i class="icon {{ $icon }}" aria-hidden="true"></i>
+        {{- end }}
+        <span class="label">{{- $name }}</span>
+      </a>
       {{- with .Children }}
         <ul>
           {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
