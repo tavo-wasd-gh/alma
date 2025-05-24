@@ -3,6 +3,8 @@ languageCode = 'es'
 title = 'ALMA'
 theme = 'alma'
 
+ignoreFiles = ["\\.org$"]
+
 [menus]
   [[menus.main]]
     name = 'Home'
@@ -19,19 +21,16 @@ theme = 'alma'
     pageRef = '/tags'
     weight = 30
     params.icon = 'bx bx-book'
-  [[menus.main]]
-    name = 'Menu'
-    pageRef = '#test'
-    weight = 40
-    params.icon = 'bx bx-menu'
 
 [markup]
   [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.passthrough]
         enable = true
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
-          inline = [['\(', '\)']]
+          inline = [['\(', '\)'], ['$', '$']]
 [params]
   math = true

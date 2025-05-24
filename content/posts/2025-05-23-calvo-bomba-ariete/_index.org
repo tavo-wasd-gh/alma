@@ -1,0 +1,309 @@
+#+title: Bomba de Golpe de Ariete (Water Hammer): Análisis Histórico y Práctico
+#+author: Gustavo A. Calvo Gutiérrez
+#+LANGUAGE: es
+#+options: toc:nil
+#+latex_header: \usepackage[margin=1in]{geometry}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \AtBeginDocument{\selectlanguage{spanish}}
+#+latex_header: \usepackage{multicol,lipsum}
+#+cite_export: csl ~/.config/snippets/acs.csl
+#+bibliography: bibliography.bib
+
+#+BEGIN_EXPORT html
+<div id="generated-navbar-toc">
+#+END_EXPORT
+#+TOC: headlines 1
+#+BEGIN_EXPORT html
+</div>
+#+END_EXPORT
+
+#+begin_quote latex
+Este estudio se centra en la investigación de aspectos prácticos y teóricos del
+dispositivo hidráulico conocido como "bomba de golpe de ariete". Un método usado
+para llevar agua a una mayor elevación que la diferencia de altura entre una fuente
+de agua y la bomba de golpe de ariete, aprovechando la energía cinética del
+flujo en tuberías en forma de presión.
+La bomba de golpe de ariete es un mecanismo que ha sido empleado históricamente
+para trasladar agua en situaciones donde la disponibilidad de energía eléctrica o
+combustible es limitada o inexistente. Actualmente es una solución establecida con
+múltiples modelos que emplean el mismo concepto sencillo, pero con mejoras en los materiales
+de las piezas, por ejemplo, para evitar fugas o aumentar la capacidad de presión.
+Aquí se explora cómo los marcos teóricos desarrollados por Joukowsky
+pueden ser aplicados a desafíos prácticos en áreas aisladas y se indaga sobre
+la viabilidad de la implementación de acuerdo a disponibilidad de piezas,
+documentación y dificultad de ensamblado.
+#+end_quote
+
+* Introducción
+
+El dispositivo conocido como /bomba de golpe de ariete/, es una aplicación del fenómeno
+del /golpe de ariete/ o /hydraulic ram/ como se denominaba desde el siglo XIX.
+[cite:@rankine1872mathematical]
+El orgien exacto de esta idea, o del fenómeno que la causa no es conocido con certeza, pero
+múltiples ensayos mencionan posibles teorías que aquí se intentan ordenar de forma objetiva.
+Principalmente, se destacan las ecuaciones fundamentales de Joukowsky ya que en la modernidad
+son la base del estudio de este fenómeno.
+
+La dispocición típica de una bomba de golpe de ariete posee una suministro de fluido (incompresible),
+una cámara de compresión (con fluido compresible), y una regulador de fluido comúnmente llamado
+válvula de tipo check, una pieza que permite el paso de fluido solamente en una sola dirección.
+[cite:@ecoinventosCmoHacer]
+Más adelante se detalla cómo este prototipo se puede modelar y construir de manera sencilla. A pesar
+de que las ecuaciones que describen su comportamiento son complicadas de derivar, se pueden aplicar
+de manera sencilla para verificar el funcionamiento seguro y eficiente del aparato.
+
+Este fenómeno es una consecuencia del principio de continuidad, ya que ocurre al reducir
+considerablemente la velocidad de un líquido incompresible, aumentando su presión. Este
+"choque" genera ondas de presión en el líquido, las cuales afectan de alguna manera el
+sistema en el que se encuentran (usualmente una tubería). El dispositivo en cuestión, busca
+aprovechar las ondas de presión de este fenómeno para guardar la energía en un reservorio
+con fluido compresible. El aprovechamiento del exceso de presión es lo que permite bombear
+el fluido, no obstante, cuando ocurre de manera inesperada, puede ocasionar daños irreparables
+a los sistemas hidráulicos. [cite:@lugo2014fenomeno]
+
+* Historia
+
+El análisis de la física de fluidos es complejo, en algunos casos abierto a amplio debate como 
+el artículo "No one can explain why planes stay in the air". [cite:@regis2020no]
+Nikolay Zhukovsky, romanizado como Joukowsky, fue uno de los primeros en desarrollar
+una teoría sobre la sustentación basada en la circulación de un campo vectorial, de hecho,
+es conocido mayormente por su trabajo en dinámica de fluidos. [cite:@anderson2011ebook]
+Este escrito se enfoca en indagar sobre el desarrollo de la teoría del golpe de ariete,
+de manera que los estudios de Joukowsky son oportunos para la investigación.
+
+El estudio del efecto del golpe de ariete empieza en el siglo XIX con Luigi Federico Menabrea.
+Pero fue hasta Joukowsky y Allievi que el tema atrajo más atención. [cite:@ghidaoui2005review]
+Como es de esperar para la época, se pueden encontrar al menos tres esfuerzos independientes,
+de la misma época, se presume por desconocimiento y escasa comunicación.
+
+El nombre "golpe de ariete" o "hydraulic ram"
+fue utilizado por primera vez por Rankine en su obra
+"On the mathematical theory of the hydraulic ram" [cite:@rankine1872mathematical],
+posiblemente popularizado por Allievi.
+De hecho, como lo indica Anderson, A, [cite:@anderson2000celebrations],
+"[Joukowsky] Parece haber sido escrupuloso a la hora de reconocer todas las contribuciones
+anteriores a su nueva síntesis de la teoría del golpe de ariete...". Ya que no hay evidencia
+de que conociera dichas contribuciones, pero tampoco de que las haya ignorado.
+
+#+begin_quote org
+/Joukowsky produjo la ecuación más conocida en la teoría de flujo transitorio,
+tan bien conocida que a menudo se la llama la "Ecuación fundamental del golpe de ariete"./
+#+end_quote
+
+Las siguientes expresiones son las denominadas ecuaciones fundamentales de Joukowsky para el
+martillo de agua, tomadas del artículo de Ghidaoui et al. [cite:@ghidaoui2005review],
+donde $\rho$ es la densidad del fluido (agua), y $a$ es la velocidad de la onda de presión
+en la tubería.
+
+#+NAME: eqn:ghidaoui
+\begin{aligned}
+    \Delta P &= \rho \cdot a \cdot \Delta \upsilon
+    \quad \quad \quad \quad
+    \Delta H = \frac{a \Delta \upsilon}{g}
+\end{aligned}
+
+La fórmula de Korteweg, [cite:@korteweg1878over] un contemporáneo de Joukowsky, se puede
+utilizar para obtener la velocidad de la onda $a$, la cual depende de $k$: Módulo de compresibilidad
+del material de la tubería, $D$: Diámetro de la tubería, $E$: Elasticidad del material de la tubería,
+$e$: Espesor de la tubería.
+
+#+NAME: eqn:korteweg
+\begin{equation}
+\begin{aligned}
+a = \frac{\sqrt{\frac{k}{\rho}}}{\sqrt{1+\frac{kD}{eE}}}
+\end{aligned}
+\end{equation}
+
+Joukowsky publicó trabajos al respecto en las "Memorias de la Academia Imperial de Ciencias
+de San Petersburgo", lo que sugiere que estuvo involucrado o afiliado a la Academia alrededor
+del año 1900, cuando realizó la publicación: "Über den hydraulischen Stoss in Wasserleitungsrohren"
+(Sobre el Choque Hidráulico en las Tuberías de Agua) [cite:@joukowsky1900uber]. Esta institución
+es conocida por el trabajo realizado por Leonhard Euler o los hermanos Bernoulli.
+Lastimosamente mucho de ese material parece estar disponible en formato físico en contadas
+locaciones, pero sería aplicable buscar alguna inspiración que pudiera tener Joukowsky 
+en los estudios de dinámica de fluidos de personajes adyacentes a la Academia de San Petersburgo.
+Es importante destacar los esfuerzos de Joseph Frizell [cite:@frizell1898pressures] y
+Lorenzo Allievi, quien investigó los mismos efectos y publicó en
+1902 [cite:@allievi1902teoria] y 1913 [cite:@allievi1913teoria]
+sus trabajos relacionados a la teoría del golpe de griete (desconociendo hasta entonces
+los avances de Joukowsky). Se presume que algunos de los primeros experimentos
+de Allievi se llevaron a cabo como resultado directo de incidentes y fallos
+causados por la sobrepresión debido al cierre rápido de válvulas en plantas
+de energía del norte de Italia. [cite:@ghidaoui2005review]
+
+* Diseño
+
+Naturalmente, un diseño del dispositivo de bomba de golpe de ariete y su análisis permite
+comprender mejor el fenómeno, además, el estudio del mecanismo para aprovechar la presión
+puede ser útil como ejercicio del estudio de la dinámica de fluidos. El diseño escogido para
+la demostración es el de Inthachot, M. et al. [cite:@Inthachot2015] Este diseño en particular
+fue utilizado para abastecer una red de riego, esto ejemplifica la utilidad de construir un
+modelo de sistema hidráulico cuya presión sea obtenida sin combustible o energía eléctrica.
+El diseño y su funcionamiento general, simplificado, consiste de:
+
+- Un reservorio de fluido compresible
+- Dos válvulas de tipo check
+- Tubería necesaria para conectar los aparatos en la disposición siguiente
+
+#+begin_src pic :results file :exports none
+line down 0.5i right 0.5i
+line right 0.2i
+line up 0.1i
+box ht 0.2i width 0.1i "\v'-0.1'\h'-1.6'\s'-5'Check\v'0.3'\h'-2.5'valve 1\h'0.5'$\[ua]$"
+line up 0.1i
+line right 1i "\v'-0.2'Delivery pipe"
+line up 0.8i
+move down 0.8i
+move left 1i
+line up 0.1i
+box ht 0.2i width 0.1i "\v'-1'Reservoir"
+move down 0.7i
+line right 0.2i
+line up 0.1i
+box ht 0.2i width 0.1i "\s'+5'\h'2'$\[da]$\s'-5'\v'-0.1'\h'1'Check\v'0.3'\h'-2.5'valve 2"
+#+end_src
+
+#+ATTR_LATEX: :width 0.5\linewidth
+[[file:~/Documents/education/college/fisica-II/proyecto/modelo.png]]
+
+En este diseño, el agua de la tubería de entrada lleva una energía cinética que activa la
+válvula /check/ número 2 (note que está invertida). Idealmente está válvula tendría un
+mecanismo para ser regulada con respecto a la fuerza ejercida por el agua, por ejemplo,
+un resorte o en el caso de la pequeña prueba realizada para documentación de este escrito,
+un contrapeso. Seguidamente, la válvula 1 permite que el agua a presión entre a la cámara
+de compresión. Es claro que al compresionar el fluido en esta cámara (aire en este caso),
+se puede "guardar" presión que a su vez no puede escapar por la influencia de válvula 1,
+de manera que se logra bombear un porcentaje del agua ingresada.
+
+Un factor importante a tomar en cuenta es la eficiencia, suponiendo que la altura de la
+entrada y salida es la misma, la eficiencia debería poder calcularse simplemente con la
+relación de flujo de entrada y salida, pero este caso no es demasiado útil.
+Dado que se busca elevar el fluido a una mayor altura, se debe utilizar también el
+factor de altura tanto de la entrada de fluido como la salida.
+Si el fluido en la caída inicial está en reposo, y alcanza una posición de reposo en la
+tubería de salida después de un tiempo, entonces se puede simplemente relacionar
+la energía potencial inicial y final por unidad de tiempo.
+Inthachot, M. et al. [cite:@Inthachot2015] proporcionan esta misma expresión para
+calcular dicha eficiencia.
+
+#+NAME: eqn:eff
+\begin{equation}
+\begin{aligned}
+    \eta = \frac{q \cdot h}{Q \cdot H}
+\end{aligned}
+\end{equation}
+
+#+begin_export latex
+\begin{multicols}{2}
+#+end_export
+
+* Breve experimento
+** Marco teórico
+
+Se utilizan las expresiones fundamentales del golpe de ariete de Joukowsky ([[eqn:joukowsky]]),
+la fórmula de Korteweg ([[eqn:korteweg]]), y la eficiencia descrita por Inthachot, M et al. en ([[eqn:eff]]).
+Además, el ensamblado se basa en el diseño también por Inthachot, M et al. [cite:@Inthachot2015]
+previamente explicado.
+
+** Metodología
+*** Materiales
+
+|-------------------+-----------|
+| Piezas $1/2"$     |  Cantidad |
+|-------------------+-----------|
+| Tubo PVC 3 metros |         1 |
+| Pieza T PVC       |         2 |
+| Pieza codo PVC    |         1 |
+| Válvula check     |         2 |
+| Niple acero       |         3 |
+| Botella plástica  |         1 |
+|-------------------+-----------|
+| Costo en CRC      | 18,000.00 |
+|-------------------+-----------|
+
+*** Procedimiento
+
+Primeramente, se buscan las piezas necesarias para el montaje tomando en cuenta aspectos como
+el costo o la disponibilidad para conseguir analizar la viabilidad del proyecto al menos
+desde una perspectiva a pequeña escala. Seguidamente, se realiza el ensamblado siguiendo las
+instrucciones de la implementación del modelo mencionado. [cite:@Inthachot2015] Similarmente,
+se anotan detalles como la complejidad del ensamblado, confiabilidad y robustez del diseño
+y del mecanismo. Por último, se pone a trabajar y se toman las mediciones necesarias.
+
+** Resultados
+
+Como se muestra en la figura (1), fue posible extraer fluido de una manguera con
+salida más elevada al nivel del fluido que pasa por la tubería de entrada. Este era el principal
+objetivo ya que comprueba que se puede elevar agua por encima del nivel de entrada si se bombea
+con una eficiencia superior a cero, como se calcula posteriormente.
+
+Utilizando la fórmula ([[eqn:korteweg]]) de la velocidad de la onda de presión de Korteweg,
+se tiene que:
+
+\begin{equation}
+\begin{aligned}
+a = 479,86 m/s
+\end{aligned}
+\end{equation}
+
+Esto tomando valores de referencia del PVC para tubos de media pulgada, como el espesor
+o el módulo $k$ detallado en [cite:@cinca2013experimental]. Para calcular la velocidad final
+no puede aplicarse el principio de Bernoulli de una forma sencilla porque existe un cambio
+de presión en un tiempo. Por otro lado, se puede obtener calculando el caudal después de un
+tiempo y el área transversal de la salida, de manera que aplicando la fórmula de Joukowsky:
+
+#+NAME: eqn:joukowsky
+\begin{aligned}
+\Delta H = \frac{a \cdot v_f}{g} = 39,34m
+\end{aligned}
+
+Esta altura en $m.c.a$ no implica que pueda levantar el agua a esa altura, pero que
+puede ejercer esa presión equivalente que puede escapar por múltiples lugares como
+las válvulas check, deformaciones, expansiones, o fugas. Consecuentemente, para mejorar
+su eficiencia se deben optimizar las pérdidas en estos puntos en el sistema.  Los tubos
+utilizados en este experimento están muy por debajo de esta presión, es decir, con materiales
+comunes se logra alcanzar un mecanismo robusto.
+
+[[file:overview.jpg]]
+#+BEGIN_CENTER
+Figura 1. Vista general
+#+END_CENTER
+
+#+begin_export latex
+\end{multicols}
+#+end_export
+
+#+begin_export latex
+\pagebreak
+#+end_export
+
+* Conclusiones
+
+La historia detrás de la rama de los fluidos en la física es extensa, esta es una pequeñda porción
+del bagaje científico obtenido hasta ahora. No obstante, es razonable considerar el estudio de los
+detalles expresados en este escrito dada la relevancia del fenómeno en la historia (siendo,
+por ejemplo, la motivación de Allievi para su trabajo), [cite:@ghidaoui2005review] pero también en
+la actualidad. Esto debido a ser protagonista de daños considerables en
+sistemas hidráulicos, véase: El Fenómeno del Golpe de Ariete: Causas, Efectos y Prevención.
+[cite:@lugo2014fenomeno]
+En el libro "Física I" de Resnick, Halliday y Walker [cite:@halliday2013fundamentals],
+no se mencionan este mecanismo ni su fenómeno causante, a pesar de su gran relevancia,
+similarmente a la ausencia de mención de otros fenómenos desfavorables
+para la infraestructura como las auto-oscilaciones, por ejemplo.
+
+Por otro lado, este es un ejercicio relativamente sencillo de corroborar una vez se tiene acceso a
+las expresiones que describen algunos factores físicos como la velocidad de propagación de las
+ondas de presión, expresiones cuya historia brinda un mejor contexto del desarrollo de esta rama
+en la física. Además, es un análisis interesante y enriquecedor para el estudio de la
+dinámica de fluidos.
+
+Finalmente, el análisis de viabilidad de acuerdo al costo de los materiales y los resultados,
+es que es posible construir  por un bajo costo una máquina autónoma que puede funcionar solamente
+con una caída de fluido, por ejemplo, en un río. Claro que no es una solución confiable para
+sistemas complejos, pero simplifican algunas aplicaciones como las mencionadas en este escrito
+como sistemas de riego, otros ejemplos pueden ser llenar un tanque que abastece un hogar o
+una finca. Por esta razón, es relevante considerar este método para bombear fluidos de una manera
+limpia y de bajo costo.
+
+* Referencias
+#+print_bibliography:

@@ -19,6 +19,7 @@
   --font-family-header: var(--font-default-sans);
   --font-family-footer: var(--font-default-sans);
   --font-family-navbar: var(--font-default-sans);
+  --font-family-menu: var(--font-default-sans);
   --font-size-body: 16px;
   --font-family-body-heading: var(--font-default-serif);
   --font-family-body: var(--font-default-serif);
@@ -36,6 +37,13 @@
   --blur-intensity: 0.3rem;
   --text-hyphens-body: none;
   --text-align-body: justify;
+  --box-shadow-medium: 0 0.05rem 0.6rem rgba(0, 0, 0, 0.3);
+  --box-shadow-large: 0 0.05rem 2rem rgba(0, 0, 0, 0.4);
+  --color-overlay: rgba(255, 255, 255, 0.95);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,6 +59,7 @@
     --color-fg-link-visited: #166e9dff;
     --color-fg-action: #db7e56ff;
     --color-fg-action-secondary: #a76244ff;
+    --color-overlay: rgba(0, 0, 0, 0.85);
   }
 }
 
@@ -95,6 +104,7 @@ body {
 }
 
 h1,h2,h3,h4 {
+  text-align: left;
   font-weight: bold;
   font-family: var(--font-family-body-heading);
   color: var(--color-fg-title);
@@ -107,8 +117,13 @@ a {
 
 /* NAVBAR */
 
-nav {
-  font-family: var(--font-family-navbar);
+#navbar {
+  border: 1px solid var(--color-fg-unemph);
+  box-shadow: var(--box-shadow-medium);
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-bg-secondary);
+  backdrop-filter: blur(var(--blur-intensity));
+  -webkit-backdrop-filter: blur(var(--blur-intensity));
   position: fixed;
   z-index: 1000;
   max-width: var(--dimension-content-width);
@@ -117,39 +132,61 @@ nav {
   left: 5%;
 }
 
-nav ul {
+#navbar-list {
+  font-family: var(--font-family-navbar);
   font-size: 0.95rem;
   display: flex;
-  backdrop-filter: blur(var(--blur-intensity));
-  -webkit-backdrop-filter: blur(var(--blur-intensity));
   gap: 3rem;
-  border: 1px solid var(--color-fg-unemph);
-  border-radius: var(--border-radius-medium);
-  background-color: var(--color-bg-secondary);
   list-style: none;
   padding: 0.8rem 0;
   margin: 0;
   justify-content: center;
 }
 
-nav a {
-  transition: color 0.3s ease, transform 0.3s ease;
+#navbar-list a {
+  transition: all 0.2s ease;
   text-decoration: none;
   color: var(--color-fg-unemph);
 }
 
-nav a:hover {
+#navbar-list a:hover {
   color: var(--color-fg);
 }
 
-nav a.active {
+#navbar-list a.active {
   color: var(--color-fg-active);
 }
 
-nav .icon {
+#navbar-list .icon {
   vertical-align: middle;
   font-size: 1.4rem;
   padding: 0 0.2rem;
+}
+
+#navbar-menu {
+  transition: all 0.2s ease;
+  font-family: var(--font-family-menu);
+  justify-content: left;
+  margin: 0rem 2rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+#navbar-menu.active {
+  transition: all 0.2s ease;
+  margin: 0.8rem 2rem;
+  overflow-y: scroll;
+  max-height: 20rem;
+  opacity: 1;
+}
+
+#navbar-toc ol {
+  padding-left: 1rem;
+}
+
+#navbar-toc ol li {
+  padding-top: 0.8rem;
 }
 
 /* HEADER */
@@ -183,11 +220,16 @@ footer {
 
 /* MISC */
 
-mjx-container.MathJax {
+mjx-container {
+  display: inline-grid;
   overflow-x: auto;
-  display: block;
+  overflow-y: hidden;
   max-width: 100%;
-  padding: 0.5rem 0;
+}
+
+blockquote {
+  font-size: 0.85rem;
+  margin: 0 1rem;
 }
 
 /* IMAGES */
@@ -197,4 +239,70 @@ img {
   margin: 2rem auto;
   width: 100%;
   max-width: 36rem;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+/* HOME - CAROUSEL */
+
+.carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1rem;
+  padding: 0.8rem 0;
+}
+
+.card {
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius-medium);
+  border: 1px solid var(--color-fg-unemph);
+  width: 15rem;
+  height: 9rem;
+  transition: all 0.2s ease;
+}
+
+.card::before {
+  content: "";
+  inset: 0;
+  position: absolute;
+  background: linear-gradient(to top, var(--color-overlay) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 0;
+}
+
+.card:hover {
+  border: 1px solid var(--color-fg);
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 80%;
+  padding: 1rem;
+}
+
+.card-content h3 {
+  font-family: var(--font-default-sans);
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-fg-title);
+}
+
+.card-content small {
+  font-family: var(--font-default-sans);
+  font-size: 0.7rem;
+  color: var(--color-fg);
 }

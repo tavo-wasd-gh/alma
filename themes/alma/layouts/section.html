@@ -1,8 +1,13 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <div class="page-front-matter">
+    <h1>{{ .Title }}</h1>
+  </div>
+
   {{ .Content }}
+
+  {{- partial "toc-move.html" }}
+
   {{ range .Pages }}
     <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
   {{ end }}
 {{ end }}

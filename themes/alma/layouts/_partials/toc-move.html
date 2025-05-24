@@ -1,0 +1,11 @@
+<!-- Moves 'generated-navbar-toc' element to the 'navbar-menu' navbar div -->
+<script>
+    const toc = document.getElementById('generated-navbar-toc');
+    const menu = document.getElementById('navbar-menu');
+
+    if (toc && menu) {
+        const fragment = document.createDocumentFragment();
+        fragment.appendChild(toc);
+        menu.appendChild(fragment);
+    }
+</script>
