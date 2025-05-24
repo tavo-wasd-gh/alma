@@ -2,7 +2,6 @@ baseURL = 'https://alma.ucr.ac.cr/'
 languageCode = 'es'
 title = 'ALMA'
 theme = 'alma'
-
 ignoreFiles = ["\\.org$"]
 
 [menus]
@@ -34,3 +33,4 @@ ignoreFiles = ["\\.org$"]
           inline = [['\(', '\)'], ['$', '$']]
 [params]
   math = true
+  description = 'Archivo Libre para Material Académico'
