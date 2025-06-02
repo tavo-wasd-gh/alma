@@ -1,17 +1,20 @@
 <div class="carousel">
   <div class="carousel-track">
     {{ $section := .Get 0 }}
-    {{ $pages := where site.RegularPages "Section" $section }}
+    {{ $limit := .Get 1 | default 10 }}
+    {{ $pages := where site.RegularPages "Section" $section | first $limit }}
     {{ range $pages }}
     <div class="card" style="background-image: url('{{ with .Params.banner }}{{ . }}{{ else }}/stars.svg{{ end }}');">
       <a href="{{ .RelPermalink }}">
         <div class="card-content">
           <h3>{{ .Title | truncate 32 }}</h3>
-          {{ $months := dict "January" "enero" "February" "febrero" "March" "marzo" "April" "abril" "May" "mayo" "June" "junio" "July" "julio" "August" "agosto" "September" "septiembre" "October" "octubre" "November" "noviembre" "December" "diciembre" }}
-          {{ $month := index $months (.Date.Format "January") }}
-          <small>{{ .Date.Format "2" }} de {{ $month }} de {{ .Date.Format "2006" }}</small>
+          {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+          {{ $dateHuman := .Date | time.Format ":date_long" }}
+          <small>
+            <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+          </small>
         </div>
-      <a>
+        <a>
     </div>
     {{ end }}
   </div>

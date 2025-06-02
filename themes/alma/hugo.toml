@@ -16,6 +16,8 @@
     params.icon = 'bx bx-book'
 
 [markup]
+  [markup.highlight]
+    style = 'github-dark'
   [markup.goldmark]
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.passthrough]
@@ -23,6 +25,7 @@
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)']]
+
 [params]
   math = true
 

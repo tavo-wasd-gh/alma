@@ -3,25 +3,57 @@ languageCode = 'es'
 title = 'ALMA'
 theme = 'alma'
 ignoreFiles = ["\\.org$"]
+defaultContentLanguage = 'es'
 
-[menus]
-  [[menus.main]]
-    name = 'Home'
-    pageRef = '/'
-    weight = 10
-    params.icon = 'bx bx-home'
-  [[menus.main]]
-    name = 'Posts'
-    pageRef = '/posts'
-    weight = 20
-    params.icon = 'bx bx-news'
-  [[menus.main]]
-    name = 'Tags'
-    pageRef = '/tags'
-    weight = 30
-    params.icon = 'bx bx-book'
+[params]
+  math = true
+  description = 'Archivo Libre para Material Académico'
+
+[languages]
+  [languages.es]
+    languageCode = 'es'
+    languageName = 'Español'
+    weight = 1
+    [languages.es.menus]
+      [[languages.es.menus.main]]
+        identifier = 'home'
+        pageRef = '/'
+        weight = 10
+        params.icon = 'bx bx-home'
+      [[languages.es.menus.main]]
+        identifier = 'pub'
+        pageRef = '/pub'
+        weight = 20
+        params.icon = 'bx bx-news'
+      [[languages.es.menus.main]]
+        identifier = 'subjects'
+        pageRef = '/tags'
+        weight = 30
+        params.icon = 'bx bx-book'
+  [languages.en]
+    languageCode = 'en'
+    languageName = 'English'
+    weight = 2
+    [languages.en.menus]
+      [[languages.en.menus.main]]
+        identifier = 'home'
+        pageRef = '/'
+        weight = 10
+        params.icon = 'bx bx-home'
+      [[languages.en.menus.main]]
+        identifier = 'pub'
+        pageRef = '/pub'
+        weight = 20
+        params.icon = 'bx bx-news'
+      [[languages.en.menus.main]]
+        identifier = 'subjects'
+        pageRef = '/tags'
+        weight = 30
+        params.icon = 'bx bx-book'
 
 [markup]
+  [markup.highlight]
+    style = 'solarized-dark256'
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
@@ -31,6 +63,3 @@ ignoreFiles = ["\\.org$"]
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)'], ['$', '$']]
-[params]
-  math = true
-  description = 'Archivo Libre para Material Académico'

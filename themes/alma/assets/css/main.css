@@ -46,21 +46,19 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+.dark {
   /* Color palette - dark */
-    --color-bg: #182123;
-    --color-bg-secondary: #182A2Ee0;
-    --color-fg: #a7babaff;
-    --color-fg-unemph: #2A464B;
-    --color-fg-title: #fff;
-    --color-fg-active: #17a5c1ff;
-    --color-fg-link: #2393cfff;
-    --color-fg-link-visited: #166e9dff;
-    --color-fg-action: #db7e56ff;
-    --color-fg-action-secondary: #a76244ff;
-    --color-overlay: rgba(0, 0, 0, 0.85);
-  }
+  --color-bg: #182123;
+  --color-bg-secondary: #182A2Ee0;
+  --color-fg: #a7babaff;
+  --color-fg-unemph: #2A464B;
+  --color-fg-title: #fff;
+  --color-fg-active: #17a5c1ff;
+  --color-fg-link: #2393cfff;
+  --color-fg-link-visited: #166e9dff;
+  --color-fg-action: #db7e56ff;
+  --color-fg-action-secondary: #a76244ff;
+  --color-overlay: rgba(0, 0, 0, 0.85);
 }
 
 /* Medium */
@@ -181,12 +179,35 @@ a {
   opacity: 1;
 }
 
+#navbar-menu h1 {
+  margin: 1rem 0;
+  font-family: var(--font-default-sans);
+}
+
 #generated-navbar-toc ol {
   padding-left: 1rem;
 }
 
 #generated-navbar-toc ol li {
-  padding-top: 0.8rem;
+  padding-top: 0.3rem;
+}
+
+#generated-navbar-toc a {
+  color: var(--color-fg);
+}
+
+#generated-navbar-toc a.highlighted {
+  font-weight: bold;
+  color: var(--color-fg-active);
+  text-decoration: underline;
+}
+
+select {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--color-fg-unemph);
+  color: var(--color-fg);
+  padding: 0.25rem;
 }
 
 /* HEADER */
@@ -214,13 +235,12 @@ a {
 }
 
 .page-front-matter {
-  text-align: center;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
-.page-front-matter h1 {
-  margin: 0;
-  padding-top: 1rem;
+.page-front-matter * {
+  text-align: left;
+  margin: 0.4rem 0;
 }
 
 /* FOOTER */
@@ -269,8 +289,8 @@ a:hover {
 
 .carousel-track {
   display: flex;
-  gap: 1rem;
-  padding: 0.8rem 0;
+  gap: 0.6rem;
+  padding: 0;
 }
 
 .card {
@@ -319,4 +339,12 @@ a:hover {
   font-family: var(--font-default-sans);
   font-size: 0.7rem;
   color: var(--color-fg);
+}
+
+/* CODE BLOCKS */
+
+div.highlight pre {
+  border-radius: var(--border-radius-small);
+  padding: 1rem;
+  overflow-x: scroll;
 }

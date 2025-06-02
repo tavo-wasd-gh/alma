@@ -11,7 +11,7 @@
       <li>
         <a onclick="toggleActiveById('navbar-menu')">
           <i class="icon bx bx-menu" aria-hidden="true"></i>
-          <span class="label">Menu</span>
+          <span class="label">{{ or (T "menu") .Name | safeHTML }}</span>
         </a>
         <script>
           function toggleActiveById(id) {
