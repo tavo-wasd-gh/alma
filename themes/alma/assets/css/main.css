@@ -12,9 +12,11 @@
   --color-fg-link-visited: #002235ff;
   --color-fg-action: #883e1eff;
   --color-fg-action-secondary: #5d280fff;
+
   /* Fonts-Default */
   --font-default-sans: 'Helvetica', 'Arial', sans-serif;
   --font-default-serif: serif;
+
   /* Fonts */
   --font-family-header: var(--font-default-sans);
   --font-family-footer: var(--font-default-sans);
@@ -25,6 +27,7 @@
   --font-family-body: var(--font-default-serif);
   --font-line-height-body: 1.4;
   --font-family-article: serif;
+
   /* Dimensions */
   --dimension-content-width: 55rem;
   --dimension-content-max-width: 89.8vw;
@@ -33,12 +36,13 @@
   --border-radius-large: 2rem;
   --border-radius-medium: 1.2rem;
   --border-radius-small: 0.6rem;
+
   /* Misc */
   --blur-intensity: 0.3rem;
   --text-hyphens-body: none;
   --text-align-body: justify;
-  --box-shadow-medium: 0 0.05rem 0.6rem rgba(0, 0, 0, 0.3);
-  --box-shadow-large: 0 0.05rem 2rem rgba(0, 0, 0, 0.4);
+  --box-shadow-medium: 0 0.05rem 0.6rem rgba(0, 0, 0, 0.2);
+  --box-shadow-large: 0 0.05rem 2rem rgba(0, 0, 0, 0.3);
   --color-overlay: rgba(255, 255, 255, 0.95);
 }
 
@@ -61,16 +65,9 @@ html {
   --color-overlay: rgba(0, 0, 0, 0.85);
 }
 
-/* Medium */
-@media screen and (max-width: 70rem) {
-  :root {
-  }
-}
-
 /* Small */
+/* stylelint-disable-next-line media-feature-range-notation */
 @media screen and (max-width: 40rem) {
-  :root {
-  }
   nav .label {
     display: none;
   }
@@ -78,15 +75,12 @@ html {
 
 /* Portrait */
 @media screen and (orientation: portrait) {
-  :root {
-  }
   nav .label {
     display: none;
   }
 }
 
 /* BODY */
-
 body {
   text-align: var(--text-align-body);
   hyphens: var(--text-hyphens-body);
@@ -113,6 +107,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 /* NAVBAR */
 
 #navbar {
@@ -121,6 +119,7 @@ a {
   border-radius: var(--border-radius-medium);
   background-color: var(--color-bg-secondary);
   backdrop-filter: blur(var(--blur-intensity));
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-backdrop-filter: blur(var(--blur-intensity));
   position: fixed;
   z-index: 1000;
@@ -147,10 +146,6 @@ a {
   color: var(--color-fg-unemph);
 }
 
-#navbar-list a:hover {
-  color: var(--color-fg);
-}
-
 #navbar-list a.active {
   color: var(--color-fg-active);
 }
@@ -165,7 +160,7 @@ a {
   transition: all 0.2s ease;
   font-family: var(--font-family-menu);
   justify-content: left;
-  margin: 0rem 2rem;
+  margin: 0 2rem;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
@@ -196,6 +191,10 @@ a {
   color: var(--color-fg);
 }
 
+#navbar-list a:hover {
+  color: var(--color-fg);
+}
+
 #generated-navbar-toc a.highlighted {
   font-weight: bold;
   color: var(--color-fg-active);
@@ -214,7 +213,7 @@ select {
 
 #site-title-slogan {
   border-bottom: 1px solid var(--color-fg);
-  padding: 0 0 0.1rem 0;
+  padding: 0 0 0.1rem;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -256,8 +255,7 @@ footer {
 
 mjx-container {
   display: inline-grid;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: auto hidden;
   max-width: 100%;
 }
 
@@ -273,10 +271,6 @@ img {
   margin: 2rem auto;
   width: 100%;
   max-width: 36rem;
-}
-
-a:hover {
-  cursor: pointer;
 }
 
 /* HOME - CAROUSEL */
